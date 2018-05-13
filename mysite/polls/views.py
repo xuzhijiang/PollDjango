@@ -3,6 +3,7 @@ from django.http.response import HttpResponse, HttpResponseRedirect
 from django.http import Http404
 from django.template import RequestContext, loader
 from django.urls import reverse
+from django.views import generic
 from .models import Question, Choice
 
 
@@ -18,12 +19,20 @@ def index(request):
     return HttpResponse(template.render(context))
 '''
 
-
+'''
 def index(request):
     latest_question_list = Question.objects.order_by('-pub_date')[:5]
     context = {'latest_question_list': latest_question_list}
     return render(request, 'polls/index.html', context)
+'''
 
+class IndexView(generic.ListView):
+    template_name = 'polls/index.html'
+    context_object_name = 'latest_question_list'
+
+    def get_queryset(self):
+        '''return the latest five question list'''
+        return Question.objects.order_by('-pub_date')[:5]
 
 '''
 def detail(request, question_id):
@@ -33,14 +42,25 @@ def detail(request, question_id):
         raise Http404("question does not exist!")
     return render(request, "polls/detail.html", {'question': question})
 '''
+
+'''
 def detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     return render(request, "polls/detail.html", {'question': question})
+'''
+class DetailView(generic.DetailView):
+    template_name = 'polls/detail.html'
+    model = Question
 
 
+'''
 def results(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     return render(request, "polls/results.html", {'question': question})
+'''
+class ResultsView(generic.DetailView):
+    template_name = 'polls/results.html'
+    model = Question
 
 
 def vote(request, question_id):
