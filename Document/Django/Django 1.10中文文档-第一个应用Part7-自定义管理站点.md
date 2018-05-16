@@ -214,7 +214,7 @@ TEMPLATES = [
 
 　　`DIRS`是在加载Django模板时检查的文件系统目录列表;它是一个搜索路径。
 
-> 模板组织方式：就像静态文件一样，我们可以把所有的模板都放在一起，形成一个大大的模板文件夹，并且工作正常。但是不建议这样！最好每一个模板都应该存放在它所属应用的模板目录内（例如polls/templates）而不是整个项目的模板目录（templates），因为这样每个应用才可以被方便和正确的重用。请参考[如何重用apps](> 模板组织方式：就像静态文件一样，我们可以把所有的模板都放在一起，形成一个大大的模板文件夹，并且工作正常。但是不建议这样！最好每一个模板都应该存放在它所属应用的模板目录内（例如polls/templates）而不是整个项目的模板目录（templates），因为这样每个应用才可以被方便和正确的重用。请参考[如何重用apps (0%)](https://docs.djangoproject.com/en/1.10/intro/reusable-apps/)。
+> 模板组织方式：就像静态文件一样，我们可以把所有的模板都放在一起，形成一个大大的模板文件夹，并且工作正常。但是不建议这样！最好每一个模板都应该存放在它所属应用的模板目录内（例如polls/templates）而不是整个项目的模板目录（templates），因为这样每个应用才可以被方便和正确的重用。请参考[如何重用apps (0%)](https://docs.djangoproject.com/en/1.10/intro/reusable-apps/)。
 
 　　接下来，在刚才创建的`templates`中创建一个`admin`目录，将`admin/base_site.html`模板文件拷贝到该目录内。这个html文件来自Django源码，它位于`django/contrib/admin/templates`目录内。
 
