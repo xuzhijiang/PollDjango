@@ -1,52 +1,10 @@
-> Python是开发社区中用于许多不同类型应用的强大编程语言。很多人都知道它是可以处理几乎任何任务的灵活语言。因此，在Python应用中需要一个什么样的与语言本身一样灵活的数据库呢？那就是NoSQL，比如MongoDB。
-
-> 英文原文:https://realpython.com/blog/python/introduction-to-mongodb-and-python
-
-　　
-
-
+> 英文原文:[https://realpython.com/blog/python/introduction-to-mongodb-and-python](https://realpython.com/blog/python/introduction-to-mongodb-and-python)
 
 ## 1、SQL vs NoSQL
 
-　　如果你不是很熟悉NoSQL这个概念，MongoDB就是一个NoSQL数据库。近几年来它越来越受到整个行业的欢迎。NoSQL数据库提供了一个和关系型数据库非常不同的检索方式和存储数据功能。
-
-　　在NoSQL出现的几十年来，SQL数据库是开发者寻求构建大型、可扩展系统的唯一选择之一。然而，越来越多的需求要求存储复杂数据结构的能力。这推动了NoSQL数据库的诞生，它允许开发者存储异构和无结构的数据。
-
-　　当到数据库方案选择时，大多数人都问自己最后一个问题，“SQL或NoSQL的？”。无论是SQL和NoSQL都有自己的长处和弱点，你应该选择适合您的应用需求中最好的之一。这里是两者之间的一些区别：
-
 ### SQL
 
-* 模型是关系型的；
-
-* 数据被存放在表中；
-
-* 适用于每条记录都是相同类型并具有相同属性的情况；
-
-* 存储规范需要预定义结构；
-
-* 添加新的属性意味着你必须改变整体架构；
-
-* ACID事务支持；
-
 ### NoSQL
-
-* 模型是非关系型的;
-
-* 可以存储Json、键值对等(决定于NoSQL数据库类型)；
-
-* 并不是每条记录都要有相同的结构；
-
-* 添加带有新属性的数据时，不会影响其他；
-
-* 支持ACID事务，根据使用的NoSQL的数据库而有所不同；
-
-* 一致性可以改变；
-
-* 横向扩展；
-
-　　在两种类型的数据库之间还有许多其他的区别，但上面提到的是一些更重要的区别。根据您的具体情况，使用SQL数据库可能是首选，而在其他情况下，NoSQL的是更明显的选择。当选择一个数据库时，您应该谨慎考虑每个数据库的优势和劣势。
-
-　　NoSQL的一个好处是，有许多不同类型的数据库可供选择，并且每个都有自己的用例：
 
 * key-value存储：[DynamoDB](https://aws.amazon.com/cn/dynamodb/)
 
@@ -58,48 +16,9 @@
 
 　　还有很多，但这些是一些更常见的类型。近年来，SQL和NoSQL数据库甚至已经开始合并。例如，PostgreSQL现在支持存储和查询JSON数据，很像MongoDB。有了这个，你可以用Postgres实现MongoDB一样的功能，但你仍然没有MongoDB的其他优势（如横向扩容和简单的界面，等等）。
 
-## 2、MongoDB
-
-　　现在，让我们将视线转移到本文的重点，并阐明的MongoDB的具体的一些情况。
-
-　　MongoDB是一个面向文档的，开源数据库程序，它平台无关。MongoDB像其他一些NoSQL数据库（但不是全部！）使用JSON结构的文档存储数据。这是使得数据非常灵活，不需要的Schema。
-
-　　一些比较重要的特点是：
-
-* 支持多种标准查询类型，比如matching()、comparison (, )或者正则表达式；
-
-* 可以存储几乎任何类型的数据，无论是结构化，部分结构化，甚至是多态；
-
-* 要扩展和处理更多查询，只需添加更多的机器；
-
-* 它是高度灵活和敏捷，让您能够快速开发应用程序；
-
-* 作为基于文档的数据库意味着您可以在单个文档中存储有关您的模型的所有信息；
-
-* 您可以随时更改数据库的Schema;
-
-* 许多关系型数据库的功能也可以在MongoDB使用（如索引）。
-
-　　在运行方面，MongoDB中有相当多的功能在其他数据库中是没有的:
-
-
-* 无论您需要独立服务器还是完整的独立服务器集群，MongoDB都可以根据需要进行扩展;
-
-* MongoDB还通过在各个分片上自动移动数据来提供负载均衡支持；
-
-* 它具有自动故障转移支持，如果主服务器Down掉，新的主服务器将自动启动并运行；
-
-* MongoDB的管理服务（MMS）可以用于监控和备份MongoDB的基础设施服务；
-
-* 不像关系数据库，由于内存映射文件，你将节省相当多的RAM。
-
-　　虽然起初MongoDB似乎是解决我们许多问题的数据库，但它不是没有缺点的。MongoDB的一个常见缺点是缺少对ACID事务的支持，MongoDB在[特定场景下支持ACID事务](https://docs.mongodb.com/v3.4/core/write-operations-atomicity/)，但不是在所有情况。在单文档级别，支持ACID事务（这是大多数事务发生的地方）。但是，由于MongoDB的分布式性质，不支持处理多个文档的事务。
-
-　　MongoDB还缺少对自然join查询支持。在MongoDB看来：文档意在包罗万象，这意味着，一般来说，它们不需要参考其他文档。在现实世界中，这并不总是有效的，因为我们使用的数据是关系性的。因此，许多人认为MongoDB应该被用作一个SQL数据库的补充数据库，但是当你使用MongoDB是，你会发现这是错误的。
-
 ## 3、PyMongo
 
-　　现在我们已经描述了MongoDB的是什么，让我们来看看如何在Python中实际使用它。由MongoDB开发者发布的官方驱动程序[PyMongo](https://pypi.python.org/pypi/pymongo/)，这里通过一些例子介绍，但你也应该查看[完整的文档](https://api.mongodb.com/python/current/)，因为我们无法面面俱到。
+　　由MongoDB开发者发布的官方驱动程序[PyMongo](https://pypi.python.org/pypi/pymongo/)，这里通过一些例子介绍，但你也应该查看[完整的文档](https://api.mongodb.com/python/current/)，因为我们无法面面俱到。
 
 　　当然第一件事就是安装，最简单的方式就是`pip`：
 ```shell
@@ -109,11 +28,6 @@ pip install pymongo==3.4.0
 > 注:有关更全面的指南，请查看文档的[安装/升级](https://api.mongodb.com/python/3.4.0/installation.html)页面，并按照其中的步骤进行设置
 
 　　完成设置后，启动的Python控制台并运行以下命令：
-```shell
->>> import pymongo
-```
-
-　　如果没有提出任何异常就说明安装成功了
 
 ### 建立连接
  
@@ -348,5 +262,4 @@ Post.objects.first().author.name
 　　在上面的代码中，使用文档"外键"，我们可以很容易地找到第一篇文章的作者。其实还有比这里介绍的更多的字段类（和参数），所以一定要查看[文档字段](http://docs.mongoengine.org/apireference.html#fields)更多信息。
 　　
    从所有这些示例中，您应该能够看到，MongoEngine非常适合管理几乎任何类型的应用程序的数据库对象。这些功能使得创建一个高效可扩展程序变得非常容易。如果你正在寻找更多关于MongoEngine的帮助，请务必查阅他们的[用户指南](http://docs.mongoengine.org/guide/index.html)。
-   
    
