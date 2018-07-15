@@ -8,7 +8,6 @@ $(document).ready(function(){
 	//动画加载
 	$("body").show();
 	
-	$(".jiazai").remove();
 	$(".top-left ,.homeh4,.mysection").css({"animation":"fuzuo 1s","-webkit-animation":"fuzuo 1s"});
 	$(".swiper-container,.myaside").css({"-webkit-animation": "suoxiao 0.8s","animation": "suoxiao 0.8s"})
 	$(".myheader").css({"-webkit-animation":"fushang 0.5s","animation":"fushang 0.5s"})

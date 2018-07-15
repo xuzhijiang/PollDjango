@@ -54,12 +54,6 @@ div#tooltip p:after{
 }
 
 
-.jiazai{position:absolute;left:0;right:0;margin:auto;top:40%;width:300px;height:100px;text-align:center;}
-.jiazai img{vertical-align:middle;margin-right:10px;}
-.jiazai span{font-size:18px;color:#ccc;line-height:100px;}
-
-
-
 .orange-text{color:#ff6700;}
 .blue-text{color:#0181da;}
 .bg-color{background:rgba(255,255,255,0.5);}

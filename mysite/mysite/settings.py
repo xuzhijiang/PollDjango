@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'f@#ylu8s0oyrk5zm7y#p%pv51mxo2e(jv$3(=sc@n=40j$=61m'
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', '3*2s#(%j&sh3)^j3%o')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -79,11 +79,11 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'django_app',
-        'USER': 'root',
-        'PASSWORD': 'password',
-        'HOST': '127.0.0.1',
-        'PORT': 3306,
+        'NAME': 'poll_django',
+        'USER': os.getenv('DJANGO_MYSQL_USER', 'root'),
+        'PASSWORD': os.getenv('DJANGO_MYSQL_PASSWORD', 'password'),
+        'HOST': os.getenv('DJANGO_MYSQL_HOST', '127.0.0.1'),
+        'PORT': os.getenv('DJANGO_MYSQL_PORT', 3306),
         'OPTIONS': {
             'read_default_file': os.path.join(BASE_DIR, 'my.cnf'),
         },
