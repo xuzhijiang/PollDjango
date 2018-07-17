@@ -6,7 +6,7 @@ from uuslug import slugify
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from django.contrib.sites.models import Site
-from July_Django.utils import cache_decorator, logger, cache
+from DjangoBlog.utils import cache_decorator, logger, cache
 from django.utils.functional import cached_property
 from django.utils.timezone import now
 

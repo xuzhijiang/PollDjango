@@ -32,15 +32,15 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.sitemaps',
     'polls.apps.PollsConfig',
-    'pagedown',
-    'haystack',
-    'blog',
-    'accounts',
-    'comments',
-    'oauth',
-    'servermanager',
-    'owntracks',
-    'compressor'
+    # 'pagedown',
+    # 'haystack',
+    # 'blog',
+    # 'accounts',
+    # 'comments',
+    # 'oauth',
+    # 'servermanager',
+    # 'owntracks',
+    # 'compressor'
 ]
 
 MIDDLEWARE = [
@@ -54,11 +54,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'blog.middleware.OnlineMiddleware'
+    # 'blog.middleware.OnlineMiddleware'
     'django.middleware.http.ConditionalGetMiddleware',
 ]
 
-ROOT_URLCONF = 'July_Django.urls'
+ROOT_URLCONF = 'DjangoBlog.urls'
 
 TEMPLATES = [
     {
@@ -77,7 +77,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'July_Django.wsgi.application'
+WSGI_APPLICATION = 'DjangoBlog.wsgi.application'
 
 
 # Database
