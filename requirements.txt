@@ -37,3 +37,4 @@ webencodings==0.5.1
 WeRoBot
 Whoosh
 xmltodict
+raven-6.9.0

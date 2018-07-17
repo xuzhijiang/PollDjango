@@ -25,7 +25,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '-*yfowfm(*$v7w^!x&57pd$ona0=8b
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
-DEBUG = False
+DEBUG = True
 TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
 
 # ALLOWED_HOSTS = []
@@ -110,13 +110,14 @@ WSGI_APPLICATION = 'DjangoBlog.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'django_app',
+        'NAME': 'django_blog',
         'USER': os.getenv('DJANGO_MYSQL_USER', 'root'),
         'PASSWORD': os.getenv('DJANGO_MYSQL_PASSWORD', 'password'),
         'HOST': os.getenv('DJANGO_MYSQL_HOST', '127.0.0.1'),
         'PORT': os.getenv('DJANGO_MYSQL_PORT', 3306),
         'OPTIONS': {
-            'read_default_file': os.path.join(BASE_DIR, 'my.cnf', 'charset': 'utf8mb4'),
+            'read_default_file': os.path.join(BASE_DIR, 'my.cnf'),
+            'charset': 'utf8mb4',
         },
     }
 }
