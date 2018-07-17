@@ -22,9 +22,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 from .admin_site import admin_site
 
-# urlpatterns = [
-#     path('admin/', admin.site.urls),
-# ]
 
 sitemaps = {
     'blog': ArticleSiteMap,
