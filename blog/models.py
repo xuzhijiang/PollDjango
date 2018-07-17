@@ -2,14 +2,15 @@ from django.db import models
 from django.urls import reverse
 from django.conf import settings
 from uuslug import slugify
-
+import logging
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from django.contrib.sites.models import Site
-from DjangoBlog.utils import cache_decorator, logger, cache
+from DjangoBlog.utils import cache_decorator, cache
 from django.utils.functional import cached_property
 from django.utils.timezone import now
 
+logger = logging.getLogger(__name__)
 
 class BaseModel(models.Model):
     slug = models.SlugField(default='no-slug', max_length=160, blank=True)
@@ -58,7 +59,7 @@ class Article(BaseModel):
     type = models.CharField('类型', max_length=1, choices=TYPE, default='a')
     views = models.PositiveIntegerField('浏览量', default=0)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='作者', on_delete=models.CASCADE)
-
+    article_order = models.IntegerField('排序,数字越大越靠前', blank=False, null=False, default=0)
     category = models.ForeignKey('Category', verbose_name='分类', on_delete=models.CASCADE, blank=False, null=False)
     tags = models.ManyToManyField('Tag', verbose_name='标签集合', blank=True)
 
@@ -66,7 +67,7 @@ class Article(BaseModel):
         return self.title
 
     class Meta:
-        ordering = ['-pub_time']
+        ordering = ['-article_order', '-pub_time']
         verbose_name = "文章"
         verbose_name_plural = verbose_name
         get_latest_by = 'created_time'
@@ -144,7 +145,7 @@ class Category(BaseModel):
     def get_category_tree(self):
         """
         递归获得分类目录的父级
-        :return:
+        :return: 
         """
         categorys = []
 
@@ -160,7 +161,7 @@ class Category(BaseModel):
     def get_sub_categorys(self):
         """
         获得当前分类目录所有子集
-        :return:
+        :return: 
         """
         categorys = []
         all_categorys = Category.objects.all()
@@ -247,6 +248,7 @@ class BlogSettings(models.Model):
     open_site_comment = models.BooleanField('是否打开网站评论功能', default=True)
     beiancode = models.CharField('备案号', max_length=2000, null=True, blank=True, default='')
     analyticscode = models.TextField("网站统计代码", max_length=1000, null=False, blank=False, default='')
+    show_gongan_code = models.BooleanField('是否显示公安备案号', default=False, null=False)
     gongan_beiancode = models.TextField('公安备案号', max_length=2000, null=True, blank=True, default='')
 
     class Meta:
@@ -261,6 +263,6 @@ class BlogSettings(models.Model):
             raise ValidationError(_('只能有一个配置'))
 
     def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
         from DjangoBlog.utils import cache
         cache.clear()
-        super().save(*args, **kwargs)

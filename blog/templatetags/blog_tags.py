@@ -2,6 +2,17 @@
 # encoding: utf-8
 
 
+"""
+@version: ??
+@author: liangliangyy
+@license: MIT Licence
+@contact: liangliangyy@gmail.com
+@site: https://www.lylinux.org/
+@software: PyCharm
+@file: blog_tags.py
+@time: 2016/11/2 下午11:10
+"""
+
 from django import template
 from django.conf import settings
 from django.template.defaultfilters import stringfilter
@@ -14,10 +25,13 @@ from django.shortcuts import get_object_or_404
 import hashlib
 import urllib
 from comments.models import Comment
-from DjangoBlog.utils import cache_decorator, logger
+from DjangoBlog.utils import cache_decorator
 from django.contrib.auth import get_user_model
 from oauth.models import OAuthUser
 from django.contrib.sites.models import Site
+import logging
+
+logger = logging.getLogger(__name__)
 
 register = template.Library()
 
@@ -28,7 +42,8 @@ def timeformat(data):
         return data.strftime(settings.TIME_FORMAT)
         # print(data.strftime(settings.TIME_FORMAT))
         # return "ddd"
-    except:
+    except Exception as e:
+        logger.error(e)
         return ""
 
 
@@ -36,7 +51,8 @@ def timeformat(data):
 def datetimeformat(data):
     try:
         return data.strftime(settings.DATE_TIME_FORMAT)
-    except:
+    except Exception as e:
+        logger.error(e)
         return ""
 
 
@@ -148,6 +164,7 @@ def load_sidebar(user):
         'show_google_adsense': blogsetting.show_google_adsense,
         'google_adsense_codes': blogsetting.google_adsense_codes,
         'open_site_comment': blogsetting.open_site_comment,
+        'show_gongan_code': blogsetting.show_gongan_code,
         'sidebar_tags': sidebar_tags,
         'extra_sidebars': extra_sidebars
     }

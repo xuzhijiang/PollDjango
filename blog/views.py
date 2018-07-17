@@ -11,10 +11,13 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
-from DjangoBlog.utils import cache, logger
+from DjangoBlog.utils import cache
 from django.shortcuts import get_object_or_404
 from blog.models import Article, Category, Tag
 from comments.forms import CommentForm
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class ArticleListView(ListView):
@@ -267,12 +270,13 @@ def refresh_memcache(request):
             from django.http import HttpResponseForbidden
             return HttpResponseForbidden()
     except Exception as e:
+        logger.error(e)
         return HttpResponse(e)
 
 
 def page_not_found_view(request, exception, template_name='blog/error_page.html'):
     if exception:
-        logger.warn(exception)
+        logger.error(exception)
     url = request.get_full_path()
     return render(request, template_name,
                   {'message': '哎呀，您访问的地址 ' + url + ' 是一个未知的地方。请点击首页看看别的？', 'statuscode': '404'}, status=404)
@@ -285,6 +289,6 @@ def server_error_view(request, template_name='blog/error_page.html'):
 
 def permission_denied_view(request, exception, template_name='blog/error_page.html'):
     if exception:
-        logger.warn(exception)
+        logger.error(exception)
     return render(request, template_name,
                   {'message': '哎呀，您没有权限访问此页面，请点击首页看看别的？', 'statuscode': '403'}, status=403)

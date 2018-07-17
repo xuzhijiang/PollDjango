@@ -2,10 +2,23 @@
 # encoding: utf-8
 
 
+"""
+@version: ??
+@author: liangliangyy
+@license: MIT Licence
+@contact: liangliangyy@gmail.com
+@site: https://www.lylinux.org/
+@software: PyCharm
+@file: context_processors.py
+@time: 2016/11/6 下午4:23
+"""
 from .models import Category, Article, Tag, BlogSettings
 from django.conf import settings
 from comments.models import Comment
-from DjangoBlog.utils import logger, cache, get_blog_setting
+from DjangoBlog.utils import cache, get_blog_setting
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def seo_processor(requests):
@@ -31,7 +44,8 @@ def seo_processor(requests):
             'OPEN_SITE_COMMENT': setting.open_site_comment,
             'BEIAN_CODE': setting.beiancode,
             'ANALYTICS_CODE': setting.analyticscode,
-            "BEIAN_CODE_GONGAN": setting.gongan_beiancode
+            "BEIAN_CODE_GONGAN": setting.gongan_beiancode,
+            "SHOW_GONGAN_CODE": setting.show_gongan_code
 
         }
         cache.set(key, value, 60 * 60 * 10)

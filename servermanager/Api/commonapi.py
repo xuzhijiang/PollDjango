@@ -14,7 +14,9 @@
 """
 import requests
 import json
-from DjangoBlog.utils import logger
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class TuLing():
@@ -39,5 +41,5 @@ class TuLing():
             if str(jsons["code"]) == '100000':
                 return jsons["text"]
         except Exception as e:
-            logger.warn(e)
+            logger.error(e)
         return "哎呀，出错啦。"

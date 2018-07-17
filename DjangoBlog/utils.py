@@ -2,6 +2,16 @@
 # encoding: utf-8
 
 
+"""
+@version: ??
+@author: liangliangyy
+@license: MIT Licence
+@contact: liangliangyy@gmail.com
+@site: https://www.lylinux.org/
+@software: PyCharm
+@file: utils.py
+@time: 2017/1/19 上午2:30
+"""
 from django.core.cache import cache
 from django.contrib.sites.models import Site
 from hashlib import md5
@@ -15,7 +25,7 @@ import _thread
 from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 
-logger = logging.getLogger('djangoblog')
+logger = logging.getLogger(__name__)
 
 
 def get_max_articleid_commentid():
@@ -138,7 +148,23 @@ class CommonMarkdown():
 def send_email(emailto, title, content):
     msg = EmailMultiAlternatives(title, content, from_email=settings.DEFAULT_FROM_EMAIL, to=emailto)
     msg.content_subtype = "html"
-    _thread.start_new_thread(msg.send, (msg,))
+
+    def sendmsg_withlog():
+        from servermanager.models import EmailSendLog
+        log = EmailSendLog()
+        log.title = title
+        log.content = content
+        log.emailto = ','.join(emailto)
+
+        try:
+            result = msg.send()
+            log.send_result = result > 0
+        except Exception as e:
+            logger.error(e)
+            log.send_result = False
+        log.save()
+
+    _thread.start_new_thread(sendmsg_withlog, ())
 
 
 def parse_dict_to_url(dict):
@@ -168,6 +194,7 @@ def get_blog_setting():
             setting.open_site_comment = True
             setting.analyticscode = ''
             setting.beiancode = ''
+            setting.show_gongan_code = False
             setting.save()
         value = BlogSettings.objects.first()
         logger.info('set cache get_blog_setting')
