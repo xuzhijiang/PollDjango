@@ -2,6 +2,11 @@ from django.contrib import admin
 from .models import Question, Choice
 
 
+# class ChoiceAdmin(admin.ModelAdmin):
+#     fieldsets = [
+#         (None, {'fields': ['choice_text']})
+#     ]
+
 # class ChoickInline(admin.StackedInline):
 class ChoickInline(admin.TabularInline):
     model = Choice
@@ -21,4 +26,4 @@ class QuestionAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Question, QuestionAdmin)
-# admin.site.register(Choice)
+# admin.site.register(Choice, ChoiceAdmin)

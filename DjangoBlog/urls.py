@@ -24,7 +24,6 @@ from django.conf.urls.static import static
 from .admin_site import admin_site
 
 sitemaps = {
-
     'blog': ArticleSiteMap,
     'Category': CategorySiteMap,
     'Tag': TagSiteMap,
@@ -41,7 +40,6 @@ urlpatterns = [
                   url(r'^admin/', admin.site.urls),
                   # url(r'^$', views.index),
                   url(r'', include('blog.urls', namespace='blog')),
-
                   url(r'', include('comments.urls', namespace='comment')),
                   url(r'', include('accounts.urls', namespace='account')),
                   url(r'', include('oauth.urls', namespace='oauth')),

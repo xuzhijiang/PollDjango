@@ -11,7 +11,6 @@ from django.utils import timezone
 '''
 def index(request):
     latest_question_list = Question.objects.order_by('-pub_date')[:5]
-    # latest_question_list = Question.objects.all()
     # output = ', '.join([q.question_text for q in latest_question_list])
     template = loader.get_template("polls/index.html")
     context = RequestContext(request, {

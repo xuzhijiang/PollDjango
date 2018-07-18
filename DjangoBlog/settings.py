@@ -29,7 +29,7 @@ DEBUG = True
 TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
 
 # ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['*', 'www.lylinux.net', '127.0.0.1', 'example.com']
+ALLOWED_HOSTS = ['127.0.0.1', '192.168.6.129']
 # Application definition
 
 
@@ -54,7 +54,6 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.sitemaps',
     'polls.apps.PollsConfig',
-
     'raven.contrib.django.raven_compat',
     'pagedown',
     'haystack',
@@ -155,9 +154,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
-
-SITE_ROOT = os.path.dirname(os.path.abspath(__file__))
-SITE_ROOT = os.path.abspath(os.path.join(SITE_ROOT, '../'))
 
 HAYSTACK_CONNECTIONS = {
     'default': {
