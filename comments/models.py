@@ -4,8 +4,6 @@ from blog.models import Article
 from django.utils.timezone import now
 
 
-# Create your models here.
-
 class Comment(models.Model):
     body = models.TextField('正文', max_length=300)
     created_time = models.DateTimeField('创建时间', default=now)

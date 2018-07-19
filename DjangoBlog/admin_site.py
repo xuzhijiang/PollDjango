@@ -2,16 +2,6 @@
 # encoding: utf-8
 
 
-"""
-@version: ??
-@author: liangliangyy
-@license: MIT Licence 
-@contact: liangliangyy@gmail.com
-@site: https://www.lylinux.net/
-@software: PyCharm
-@file: admin_site.py
-@time: 2018/1/7 上午2:21
-"""
 from django.contrib.admin import AdminSite
 from django.contrib.sites.models import Site
 from django.contrib.sites.admin import SiteAdmin
@@ -24,6 +14,7 @@ from oauth.admin import *
 from servermanager.admin import *
 from comments.admin import *
 from owntracks.admin import *
+from polls.admin import *
 
 
 class DjangoBlogAdminSite(AdminSite):
@@ -71,3 +62,5 @@ admin_site.register(OwnTrackLog, OwnTrackLogsAdmin)
 admin_site.register(Site, SiteAdmin)
 
 admin_site.register(LogEntry, LogEntryAdmin)
+admin_site.register(Question, QuestionAdmin)
+admin_site.register(Choice, ChoiceAdmin)

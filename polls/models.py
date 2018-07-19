@@ -21,6 +21,11 @@ class Question(models.Model):
     was_published_recently.boolean = True
     was_published_recently.short_description = 'Published Recently'
 
+    class Meta:
+        verbose_name = '问题'
+        # avoid plural
+        verbose_name_plural = verbose_name
+
 
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
