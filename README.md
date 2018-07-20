@@ -99,9 +99,11 @@ python manage.py runserver 0.0.0.0:8000
 而不是整个项目的模板目录（templates），因为这样每个应用才可以被方便和正确的重用。
 请参考[如何重用apps (0%)](https://docs.djangoproject.com/en/1.10/intro/reusable-apps/)。
 
+> 模板命名空间: 如果我们把模板直接放在polls/templates中（而不是创建另一个polls子目录），但它实际上是一个坏主意。 Django将选择它找到的名字匹配的第一个模板，如果你在不同的应用程序中有一个相同名称的模板，Django将无法区分它们。我们需要能够将Django指向正确的一个，确保这一点的最简单的方法是通过命名空间。也就是说，将这些模板放在为应用程序本身命名的另一个目录中。
+
 ### 自定义应用模板
 
-	`DIRS`默认是空的，Django是如何找到默认的admin模板呢？回答是，由于`APP_DIRS`被设置为`True``，Django将自动查找每一个应用路径下的templates/子目录（不要忘了django.contrib.admin也是一个应用）。Django如何加载模板文件的信息，请查看[模板加载 (0%)](https://docs.djangoproject.com/en/1.10/topics/templates/#template-loading)的文档。
+	`DIRS`默认是空的，Django是如何找到默认的admin模板呢？回答是，由于`APP_DIRS`被设置为`True``，DjangoTemplates将在INSTALLED_APPS所包含的每个应用的目录下查找名为"templates"子目录（不要忘了django.contrib.admin也是一个应用）。Django如何加载模板文件的信息，请查看[模板加载 (0%)](https://docs.djangoproject.com/en/1.10/topics/templates/#template-loading)的文档。
 	如何找到Django源文件: 在命令行中运行下面代码: `python -c "import django; print(django.__path__)"`
 
 
@@ -128,3 +130,25 @@ python manage.py runserver 0.0.0.0:8000
 
 `python manage.py migrate`命令会找出所有还没有被应用的迁移文件（Django使用数据库中一个叫做django_migrations的特殊表来追踪哪些迁移文件已经被应用过），并且在你的数据库上运行它们。迁移功能非常强大，可以让你在开发过程中不断修改你的模型而不用删除数据库或者表然后再重新生成一个新的 —— 它专注于升级你的数据库且不丢失数据。
 
+### shell
+
+`python manage.py shell`, 然后才可以使用models.py中的Model,才可以通过orm对数据库进行操作
+可以创建Model对象，并且访问对象的属性，也就是对应的field值
+
+### Model
+
+有关模型关系的更多信息，请参阅[Accessing related objects](https://docs.djangoproject.com/en/1.10/ref/models/relations/)。有关如何使用双下划线通过API执行字段查找的更多信息，请参阅[字段查找](https://docs.djangoproject.com/en/1.10/topics/db/queries/#field-lookups-intro)。有关数据库API的完整详细信息，请参阅我们的[数据库API参考](https://docs.djangoproject.com/en/1.10/topics/db/queries/)。
+
+### generic view
+
+这里使用两个通用视图：[ListView](https://docs.djangoproject.com/en/1.10/ref/class-based-views/generic-display/#django.views.generic.list.ListView)和[DetailView](https://docs.djangoproject.com/en/1.10/ref/class-based-views/generic-display/#django.views.generic.list.ListView)。这两个视图分别代表“显示对象列表”和“显示特定类型对象的详细信息页面”的抽象概念。
+
+* 每个通用视图需要知道它将作用于哪个模型。 这由model 属性提供;
+
+* DetailView都是从URL中捕获名为"pk"的主键值，因此才需要把polls/urls.py中question_id改成了pk以使通用视图可以找到主键值。
+
+　　默认情况下，DetailView泛型视图使用一个称作`<app name>/<model name>_detail.html`的模板。在本例中，实际使用的是`polls/question_detail.html`。template_name属性就是用来指定这个模板名的，用于代替自动生成的默认模板名。
+
+　　在教程的前面部分，我们给模板提供了一个包含question和latest_question_list的上下文变量。而对于DetailView，question变量会被自动提供，因为我们使用了Django的模型（Question），Django会智能的选择合适的上下文变量。然而，对于ListView，自动生成的上下文变量是question_list。为了覆盖它，我们提供了context_object_name属性，指定说我们希望使用latest_question_list而不是question_list。
+
+　　更多关于通用视图的详细信息，请查看[通用视图文档](https://docs.djangoproject.com/en/1.10/topics/class-based-views/)。

@@ -1,8 +1,10 @@
 from django.db import models
 import datetime
 from django.utils import timezone
+from django.utils.encoding import python_2_unicode_compatible
 
 
+@python_2_unicode_compatible  # 当你想支持python2版本的时候才需要这个装饰器
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published')
@@ -27,6 +29,7 @@ class Question(models.Model):
         verbose_name_plural = verbose_name
 
 
+@python_2_unicode_compatible
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice_text = models.CharField(max_length=200)
