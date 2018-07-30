@@ -7,7 +7,6 @@ from django.views.generic.detail import DetailView
 from django.conf import settings
 from django import forms
 from django.http import HttpResponse
-from django.http import HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from DjangoBlog.utils import cache
@@ -106,14 +105,11 @@ class ArticleDetailView(DetailView):
             comment_form.fields["name"].initial = user.username
 
         article_comments = self.object.comment_list()
-
         kwargs['form'] = comment_form
         kwargs['article_comments'] = article_comments
         kwargs['comment_count'] = len(article_comments) if article_comments else 0
-
         kwargs['next_article'] = self.object.next_article
         kwargs['prev_article'] = self.object.prev_article
-
         return super(ArticleDetailView, self).get_context_data(**kwargs)
 
 
@@ -123,7 +119,6 @@ class CategoryDetailView(ArticleListView):
     def get_queryset_data(self):
         slug = self.kwargs['category_name']
         category = get_object_or_404(Category, slug=slug)
-
         categoryname = category.name
         self.categoryname = categoryname
         categorynames = list(map(lambda c: c.name, category.get_sub_categorys()))
@@ -139,7 +134,6 @@ class CategoryDetailView(ArticleListView):
         return cache_key
 
     def get_context_data(self, **kwargs):
-
         categoryname = self.categoryname
         try:
             categoryname = categoryname.split('/')[-1]
@@ -251,7 +245,6 @@ def fileupload(request):
                 image.save(savepath, quality=20, optimize=True)
             response.append(url)
         return HttpResponse(response)
-
     else:
         return HttpResponse("only for post")
 
@@ -259,7 +252,6 @@ def fileupload(request):
 @login_required
 def refresh_memcache(request):
     try:
-
         if request.user.is_superuser:
             from DjangoBlog.utils import cache
             if cache and cache is not None:

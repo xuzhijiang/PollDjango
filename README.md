@@ -72,21 +72,6 @@ python manage.py runserver 0.0.0.0:8000
 ## 更多配置:
 [更多配置介绍](/bin/config.md)
 
-    抓住青春的尾巴，抓住时间的尾巴
-    沙漏
-
-### `manage.py`
-
-[django-admin和manage.py](https://docs.djangoproject.com/en/1.10/ref/django-admin/)
-
-### `setttings.py`
-
-[Django settings](https://docs.djangoproject.com/en/1.10/topics/settings/)
-
-### `urls.py`
-
-[URL Dispatcher](https://docs.djangoproject.com/en/1.10/topics/http/urls/)
-
 ### `wsgi.py`
 
 [如何利用WSGI进行部署](https://docs.djangoproject.com/en/1.10/howto/deployment/wsgi/)
@@ -132,20 +117,13 @@ python manage.py runserver 0.0.0.0:8000
 `python manage.py shell`, 然后才可以使用models.py中的Model,才可以通过orm对数据库进行操作
 可以创建Model对象，并且访问对象的属性，也就是对应的field值
 
-### Model
-
-有关模型关系的更多信息，请参阅[Accessing related objects](https://docs.djangoproject.com/en/1.10/ref/models/relations/)。有关如何使用双下划线通过API执行字段查找的更多信息，请参阅[字段查找](https://docs.djangoproject.com/en/1.10/topics/db/queries/#field-lookups-intro)。有关数据库API的完整详细信息，请参阅我们的[数据库API参考](https://docs.djangoproject.com/en/1.10/topics/db/queries/)。
-
 ### generic view
-
-这里使用两个通用视图：ListView和DetailView。
-
-这两个视图分别代表“显示对象列表”和“显示特定类型对象的详细信息页面”的抽象概念。
-
-* 每个通用视图需要知道它将作用于哪个模型。 这由model 属性提供;
 
 * DetailView都是从URL中捕获名为"pk"的主键值，因此才需要把polls/urls.py中question_id改成了pk以使通用视图可以找到主键值。
 
-　　默认情况下，DetailView泛型视图使用一个称作`<app name>/<model name>_detail.html`的模板。在本例中，实际使用的是`polls/question_detail.html`。template_name属性就是用来指定这个模板名的，用于代替自动生成的默认模板名。
+> 默认情况下，DetailView泛型视图使用一个称作`<app name>/<model name>_detail.html`的模板。在本例中，实际使用的是`polls/question_detail.html`。template_name属性就是用来指定这个模板名的，用于代替自动生成的默认模板名。
 
 　　在教程的前面部分，我们给模板提供了一个包含question和latest_question_list的上下文变量。而对于DetailView，question变量会被自动提供，因为我们使用了Django的模型（Question），Django会智能的选择合适的上下文变量。然而，对于ListView，自动生成的上下文变量是question_list。为了覆盖它，我们提供了context_object_name属性，指定说我们希望使用latest_question_list而不是question_list。
+
+    抓住青春的尾巴，抓住时间的尾巴
+    沙漏
