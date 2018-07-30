@@ -1,6 +1,5 @@
 from django.shortcuts import render
 
-# Create your views here.
 import os
 import datetime
 from django.views.generic.list import ListView
