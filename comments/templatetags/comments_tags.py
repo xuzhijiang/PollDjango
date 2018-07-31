@@ -1,18 +1,6 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-
-"""
-@version: ??
-@author: liangliangyy
-@license: MIT Licence
-@contact: liangliangyy@gmail.com
-@site: https://www.lylinux.org/
-@software: PyCharm
-@file: comments_tags.py
-@time: 2016/11/2 下午9:17
-"""
-
 from django import template
 from django.template.loader import render_to_string
 from ..models import Comment

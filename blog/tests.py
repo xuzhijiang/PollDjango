@@ -13,8 +13,6 @@ from django.urls import reverse
 import os
 
 
-# Create your tests here.
-
 class ArticleTest(TestCase):
     def setUp(self):
         self.client = Client()
