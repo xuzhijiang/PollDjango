@@ -21,7 +21,6 @@
         <div id="content" role="main">
             {% if page_type and tag_name %}
                 <header class="archive-header">
-
                     <p class="archive-title">{{ page_type }}：<span>{{ tag_name }}</span></p>
                 </header><!-- .archive-header -->
             {% endif %}
@@ -40,8 +39,7 @@
                     {% endif %}
                     {% if page_obj.has_previous %}
                         <div class="nav-next"><a href="{{ SITE_BASE_URL }}page/{{ page_obj.previous_page_number }}">较新文章
-                            <span
-                                    class="meta-nav">→</span></a>
+                            <span class="meta-nav">→</span></a>
                         </div>
                     {% endif %}
                 </nav><!-- .navigation -->{% endcomment %}
@@ -56,5 +54,3 @@
 {% block sidebar %}
     {% load_sidebar user %}
 {% endblock %}
-
-

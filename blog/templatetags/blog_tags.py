@@ -69,7 +69,6 @@ def truncatechars_content(content):
 @stringfilter
 def truncate(content):
     from django.utils.html import strip_tags
-
     return strip_tags(content)[:150]
 
 
@@ -86,7 +85,6 @@ def load_breadcrumb(article):
     site = Site.objects.get_current().domain
     names.append((blogsetting.sitename, site))
     names = names[::-1]
-
     return {
         'names': names,
         'title': article.title

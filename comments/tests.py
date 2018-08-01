@@ -9,8 +9,6 @@ from comments.templatetags.comments_tags import *
 from DjangoBlog.utils import get_max_articleid_commentid
 
 
-# Create your tests here.
-
 class CommentsTest(TestCase):
     def setUp(self):
         self.client = Client()
