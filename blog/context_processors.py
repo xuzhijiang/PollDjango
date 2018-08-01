@@ -20,7 +20,7 @@ def seo_processor(requests):
         logger.info('set processor cache.')
         setting = get_blog_setting()
         value = {
-            'SITE_NAME': setting.sitename,
+            'SITE_NAME': 'RainBow',
             'SHOW_GOOGLE_ADSENSE': setting.show_google_adsense,
             'GOOGLE_ADSENSE_CODES': setting.google_adsense_codes,
             'SITE_SEO_DESCRIPTION': setting.site_seo_description,
