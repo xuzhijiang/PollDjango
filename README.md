@@ -69,14 +69,11 @@ python manage.py runserver 0.0.0.0:8000
 ```
 
  浏览器打开: http://127.0.0.1:8000/  就可以看到效果了。
-## 更多配置:
+
+### 更多配置:
 [更多配置介绍](/bin/config.md)
 
-### `wsgi.py`
-
-[如何利用WSGI进行部署](https://docs.djangoproject.com/en/1.10/howto/deployment/wsgi/)
-
-### 模板组织方式
+#### 模板组织方式
 
 > 就像静态文件一样，我们可以把所有的模板都放在一起，
 形成一个大大的模板文件夹，并且工作正常。但是不建议这样！
@@ -87,26 +84,48 @@ python manage.py runserver 0.0.0.0:8000
 
 	ex: Django是如何找到默认的admin模板呢？回答是: 如果`DIRS`默认是空的，由于`APP_DIRS`被设置为`True``，DjangoTemplates将在INSTALLED_APPS所包含的每个应用的目录下查找名为"templates"子目录（不要忘了django.contrib.admin也是一个应用）。如果`DIRS`不是空的，优先从`DIRS`下查找模板文件,如果要定制管理站点首页，需要重写`admin/index.html`模板，就像前面修改`base_site.html`模板的方法一样，然后从admin app
     目录拷贝到`DIRS`所设定的目录内。
-
-* 请参考[如何重用apps (0%)](https://docs.djangoproject.com/en/1.10/intro/reusable-apps/)。
-* Django如何加载模板文件的信息，请查看[模板加载 (0%)](https://docs.djangoproject.com/en/1.10/topics/templates/#template-loading)的文档。
 	
-### 静态文件
+#### static file
 
-	Django提供了`django.contrib.staticfiles`：它收集每个应用（和任何你指定的地方）的静态文件到一个单独的位置，使得这些文件很容易维护。
+##### staticfiles App
 
-	首先在`polls`路径中创建一个`static`目录。Django会从这里搜索静态文件，这个和Django在`polls/templates/`中查找对应的模板文件的方式是一样的。
+`django.contrib.staticfiles` expose three management command.
+使用这3个命令，saticfiles App(`django.contrib.staticfiles`)可以搜集静态文件，查找静态文件，etc.
 
-　　Django有一个[STATICFILES_FINDERS](https://docs.djangoproject.com/en/1.10/ref/settings/#std:setting-STATICFILES_FINDERS)的查找器，它会告诉Django从哪里查找静态文件。 其中有个内建的查找器`AppDirectoriesFinder`，它的作用是在每个`INSTALLED_APPS`下查找“static”子目录下的静态文件。管理站点的静态文件也是使用相同的目录结构。
+`python manage.py collectstatic --help`
 
->静态文件命名空间: 和模板类似，其实我们也可以直接将静态文件直接放在polls/static下面（而不是再创建一个polls子目录变成: polls/static/polls/css/style.css），但是这样是一个不好的行为。Django会自动使用它所找到的第一个符合要求的静态文件的文件名，如果你有在两个不同应用中存在两个同名的静态文件，那么Django是无法区分它们的。所以我们需要告诉Django该使用其中的哪一个，最简单的方法就是为它们添加命名空间。也就是将这些静态文件放进以它们所在的应用的名字命名的子目录下。
+###### collectstatic命令的作用
 
-> 警告：{% static %} 模板标签在不是由 Django 生成的静态文件（比如样式表）中是不可用的。在以后开发过程中应该使用相对路径来相互链接静态文件，因为这样你可以只改变STATIC_URL（ static模板标签用它来生成URLs）而不用同时修改一大堆静态文件的路径。
+要搜集的静态文件的源将会在`STATICFILES_FINDERS`中包含的FINDERS中去搜集，默认是在`django.contrib.staticfiles.finders.FileSystemFinder`以及`django.contrib.staticfiles.finders.AppDirectoriesFinder`中查找,前者对应`STATICFILES_DIRS`变量对应的目录，后者对应于在INSTALLED_APPS中对应的所有app下的`static`的目录下去搜集
 
-`{%static%}`模板标签生成静态文件的绝对URL
-其他更多详细信息，参见[静态文件howto](https://docs.djangoproject.com/en/1.10/howto/static-files/) 和[静态文件参考](https://docs.djangoproject.com/en/1.10/ref/contrib/staticfiles/)。[部署静态文件](https://docs.djangoproject.com/en/1.10/howto/static-files/deployment/)讲述如何在真实的服务器上使用静态文件。
-请阅读本教程的[第7部分](https://docs.djangoproject.com/en/1.10/intro/tutorial07/)，了解如何自定义Django自动生成的管理站点。
+把静态文件搜集到`STATIC_ROOT`中,如果搜集过程中有多个名字相同的文件，将把
+找到的第一个文件放到`STATIC_ROOT`中，在后续的`collectstatic`运行中（如果`STATIC_ROOT`不为空），仅当文件的修改时间戳大于`STATIC_ROOT`中文件的时间戳时才复制文件。 因此，如果从INSTALLED_APPS中删除应用程序，最好使用`collectstatic --clear`选项以删除过时的静态文件。
 
+###### findstatic
+
+`python manage.py findstatic css/base.css admin/js/core.js`
+`findstatic --first`
+
+##### STATIC_ROOT
+
+Settings for django.contrib.staticfiles.
+
+> The absolute path to the directory where collectstatic will collect static files for deployment.就是collectstatic命令搜集静态文件，集中存放的地方
+
+##### STATIC_URL
+
+> 引用位于STATIC_ROOT中的静态文件时使用的URL。
+
+##### STATICFILES_DIRS
+
+在`STATICFILES_FINDERS`启用了FileSystemFinder查找器时，
+`django.contrib.staticfiles`将会遍历静态文件的位置
+
+##### STATICFILES_FINDERS
+
+查找器列表，表示在哪些位置查找静态文件。
+
+> 静态文件命名空间: 和模板类似，其实我们也可以直接将静态文件直接放在polls/static下面（而不是再创建一个polls子目录变成: polls/static/polls/css/style.css），但是这样是一个不好的行为。Django会自动使用它所找到的第一个符合要求的静态文件的文件名，如果你有在两个不同应用中存在两个同名的静态文件，那么Django是无法区分它们的。所以我们需要告诉Django该使用其中的哪一个，最简单的方法就是为它们添加命名空间。也就是将这些静态文件放进以它们所在的应用的名字命名的子目录下。
 
 ### migrate
 
@@ -124,3 +143,5 @@ python manage.py runserver 0.0.0.0:8000
 > 默认情况下，DetailView泛型视图使用一个称作`<app name>/<model name>_detail.html`的模板。在本例中，实际使用的是`polls/question_detail.html`。template_name属性就是用来指定这个模板名的，用于代替自动生成的默认模板名。
 
 　　在教程的前面部分，我们给模板提供了一个包含question和latest_question_list的上下文变量。而对于DetailView，question变量会被自动提供，因为我们使用了Django的模型（Question），Django会智能的选择合适的上下文变量。然而，对于ListView，自动生成的上下文变量是question_list。为了覆盖它，我们提供了context_object_name属性，指定说我们希望使用latest_question_list而不是question_list。
+
+[教程](https://docs.djangoproject.com/en/2.0/intro/)
