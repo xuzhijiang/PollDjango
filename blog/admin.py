@@ -1,5 +1,4 @@
 from django.contrib import admin
-# Register your models here.
 from .models import Article, Category, Tag, Links, SideBar, BlogSettings
 from pagedown.widgets import AdminPagedownWidget
 from django import forms
