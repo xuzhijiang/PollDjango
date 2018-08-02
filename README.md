@@ -96,9 +96,7 @@ python manage.py runserver 0.0.0.0:8000
 
 ###### collectstatic命令的作用
 
-要搜集的静态文件的源将会在`STATICFILES_FINDERS`中包含的FINDERS中去搜集，默认是在`django.contrib.staticfiles.finders.FileSystemFinder`以及`django.contrib.staticfiles.finders.AppDirectoriesFinder`中查找,前者对应`STATICFILES_DIRS`变量对应的目录，后者对应于在INSTALLED_APPS中对应的所有app下的`static`的目录下去搜集
-
-把静态文件搜集到`STATIC_ROOT`中,如果搜集过程中有多个名字相同的文件，将把
+要搜集的静态文件的源将会在`STATICFILES_FINDERS`中包含的FINDERS中去搜集，默认是在`django.contrib.staticfiles.finders.FileSystemFinder`以及`django.contrib.staticfiles.finders.AppDirectoriesFinder`中查找,前者对应`STATICFILES_DIRS`变量对应的目录，后者对应于在INSTALLED_APPS中对应的所有app下的`static`的目录下去搜集,把静态文件搜集到`STATIC_ROOT`中,如果搜集过程中有多个名字相同的文件，将把
 找到的第一个文件放到`STATIC_ROOT`中，在后续的`collectstatic`运行中（如果`STATIC_ROOT`不为空），仅当文件的修改时间戳大于`STATIC_ROOT`中文件的时间戳时才复制文件。 因此，如果从INSTALLED_APPS中删除应用程序，最好使用`collectstatic --clear`选项以删除过时的静态文件。
 
 ###### findstatic
