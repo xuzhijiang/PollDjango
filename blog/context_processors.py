@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# encoding: utf-8
+#-*- encoding: utf-8 -*-
 
 from .models import Category, Article, Tag, BlogSettings
 from django.conf import settings
@@ -20,7 +20,7 @@ def seo_processor(requests):
         logger.info('set processor cache.')
         setting = get_blog_setting()
         value = {
-            'SITE_NAME': 'RainBow',
+            'SITE_NAME': setting.sitename,
             'SHOW_GOOGLE_ADSENSE': setting.show_google_adsense,
             'GOOGLE_ADSENSE_CODES': setting.google_adsense_codes,
             'SITE_SEO_DESCRIPTION': setting.site_seo_description,

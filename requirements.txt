@@ -38,4 +38,3 @@ WeRoBot==1.6.0
 Whoosh==2.7.4
 xmltodict==0.11.0
 raven==6.9.0
-
