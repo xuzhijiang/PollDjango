@@ -107,3 +107,4 @@ class BlogSettingsAdmin(admin.ModelAdmin):
 
 admin.site.register(Article, ArticlelAdmin)
 admin.site.register(Category, CategoryAdmin)
+admin.site.register(BlogSettings, BlogSettingsAdmin)

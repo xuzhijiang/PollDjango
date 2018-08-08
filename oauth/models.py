@@ -1,6 +1,4 @@
 from django.db import models
-
-# Create your models here.
 from django.conf import settings
 from django.utils.timezone import now
 from django.core.exceptions import ValidationError

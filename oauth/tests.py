@@ -2,7 +2,6 @@ from django.test import TestCase
 from .models import OAuthConfig
 
 
-# Create your tests here.
 class OAuthConfigTest(TestCase):
     def config_save_test(self):
         c = OAuthConfig()
