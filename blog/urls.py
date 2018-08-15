@@ -31,3 +31,22 @@ urlpatterns = [
     path(r'upload', views.fileupload, name='upload'),
     path(r'refresh', views.refresh_memcache, name='refresh')
 ]
+
+# 路径去重
+# ```python
+# urlpatterns = [
+#     path('<page_slug>-<page_id>/discuss/', views.discuss),
+#     path('<page_slug>-<page_id>/post/', views.post),
+#     path('<page_slug>-<page_id>/comment/, view.comment),
+#     path('<page_slug>-<page_id>/history/, view.history),
+# ]
+# urlpatterns = [
+#     path('<page_slug>-<page_id>/', include([
+#         path('discuss/', views.discuss),
+#         path('post/', views.post),
+#         path('comment/, view.comment),
+#         path('history/, view.history),
+#     ])),
+# ]
+
+# ```

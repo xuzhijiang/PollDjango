@@ -29,7 +29,7 @@ DEBUG = True
 TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
 
 # ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['127.0.0.1', '192.168.6.129']
+ALLOWED_HOSTS = ['127.0.0.1', '192.168.6.129', 'localhost']
 # Application definition
 
 
@@ -191,7 +191,7 @@ BOOTSTRAP_COLOR_TYPES = [
 ]
 
 # 分页
-PAGINATE_BY = 10
+PAGINATE_BY = 5
 # http缓存时间
 CACHE_CONTROL_MAX_AGE = 2592000
 # cache setting
