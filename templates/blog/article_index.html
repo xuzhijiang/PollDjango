@@ -26,11 +26,17 @@
             {% endif %}
 
             {% for article in article_list %}
+            <div class="blog-post">
+                <h2></h2>
+            </div>
+            {% comment %}
                 {% load_article_detail article True user %}
+            {% endcomment %}
             {% endfor %}
             {% if is_paginated %}
                 {% load_pagination_info page_obj page_type tag_name %}
-                {% comment %} <nav id="nav-below" class="navigation" role="navigation">
+                {% comment %} 
+                <nav id="nav-below" class="navigation" role="navigation">
                     <h3 class="assistive-text">文章导航</h3>
                     {% if page_obj.has_next %}
                         <div class="nav-previous"><a
@@ -42,14 +48,14 @@
                             <span class="meta-nav">→</span></a>
                         </div>
                     {% endif %}
-                </nav><!-- .navigation -->{% endcomment %}
+                </nav><!-- .navigation -->
+                {% endcomment %}
 
             {% endif %}
         </div><!-- #content -->
     </div><!-- #primary -->
 
 {% endblock %}
-
 
 {% block sidebar %}
     {% load_sidebar user %}

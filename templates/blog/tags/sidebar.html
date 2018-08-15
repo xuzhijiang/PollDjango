@@ -9,7 +9,7 @@
     <h4 class="font-italic">Views</h4>
     <ol class="list-unstyled mb-0">
       {% for a in most_read_articles %}
-        <li><a href="{{ a.get_absolute_url }}" title="{{ a.title }}">{{ a.title }}</a> - {{ a.views }}</li>
+        <li><a href="{{ a.get_absolute_url }}" title="{{ a.title }}">{{ a.title }}</a> <!-- - {{ a.views }} --></li>
       {% endfor %}
     </ol>
   </div>
