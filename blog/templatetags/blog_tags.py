@@ -171,8 +171,8 @@ def load_article_metas(article, user):
 
 @register.inclusion_tag('blog/tags/article_pagination.html')
 def load_pagination_info(page_obj, page_type, tag_name):
-    previous_url = ''
-    next_url = ''
+    previous_url = None
+    next_url = None
     if page_type == '':
         if page_obj.has_next():
             next_number = page_obj.next_page_number()
