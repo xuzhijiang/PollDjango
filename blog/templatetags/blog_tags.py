@@ -173,6 +173,7 @@ def load_article_metas(article, user):
 def load_pagination_info(page_obj, page_type, tag_name):
     previous_url = None
     next_url = None
+    current_page_num = page_obj
     if page_type == '':
         if page_obj.has_next():
             next_number = page_obj.next_page_number()
