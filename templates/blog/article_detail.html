@@ -27,8 +27,7 @@
 
 {% endblock %}
 {% block content %}
-    <div id="primary" class="site-content">
-        <div id="content" role="main">
+    <div>
             {% load_article_detail article False user %}
 
             {% if article.type == 'a' %}
@@ -44,12 +43,11 @@
                                                   rel="next">{{ prev_article.title }} <span
                                 class="meta-nav">&rarr;</span></a></span>
                     {% endif %}
-                </nav><!-- .nav-single -->
+                </nav>
             {% endif %}
-
-        </div><!-- #content -->
-        {% if article.comment_status == "o" and OPEN_SITE_COMMENT %}
-
+        </div>
+        <div>
+            {% if article.comment_status == "o" and OPEN_SITE_COMMENT %}
             {% comment %}{% load comments_tags %}
                 {% load_post_comment article from %}{% endcomment %}
             {% include 'comments/tags/comment_list.html' %}
@@ -59,20 +57,14 @@
                 <div class="comments-area">
                     <h3 class="comment-meta">您还没有登录，请您<a
                             href="{% url "account:login" %}?next={{ request.get_full_path }}">登录</a>后发表评论。</h3>
-
                     {% load oauth_tags %}
                     {% load_oauth_applications request %}
-
                 </div>
             {% endif %}
         {% endif %}
-    </div><!-- #primary -->
-
+        </div>
 {% endblock %}
-
 
 {% block sidebar %}
     {% load_sidebar user %}
 {% endblock %}
-
-

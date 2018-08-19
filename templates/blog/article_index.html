@@ -17,12 +17,10 @@
     <meta property="og:site_name" content="{{ SITE_NAME }}"/>
 {% endblock %}
 {% block content %}
-    <div id="primary" class="site-content">
-        <div id="content" role="main">
-            {% if page_type and tag_name %}
+    {% if page_type and tag_name %}
                 <header class="archive-header">
                     <p class="archive-title">{{ page_type }}：<span>{{ tag_name }}</span></p>
-                </header><!-- .archive-header -->
+                </header>
             {% endif %}
 
             {% for article in article_list %}
@@ -30,16 +28,11 @@
                     <h2 class="blog-post-title"><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h2>
                     <br/><p>{{ article.body }}</p>
                 </div>
-            {% comment %}
-                {% load_article_detail article True user %}
-            {% endcomment %}
             {% endfor %}
 
             {% if is_paginated %}
-                {% load_pagination_info page_obj page_type tag_name %}
+                {% pagination page_obj%}
             {% endif %}
-        </div><!-- #content -->
-    </div><!-- #primary -->
 {% endblock %}
 
 {% block sidebar %}

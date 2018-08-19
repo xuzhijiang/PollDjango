@@ -191,7 +191,7 @@ BOOTSTRAP_COLOR_TYPES = [
 ]
 
 # 分页
-PAGINATE_BY = 5
+PAGINATE_BY = 1
 # http缓存时间
 CACHE_CONTROL_MAX_AGE = 2592000
 # cache setting

@@ -6,7 +6,7 @@
 
   {% if most_read_articles %}
   <div class="p-3">
-    <h4 class="font-italic">Views</h4>
+    <h4 class="font-italic">Most Read</h4>
     <ol class="list-unstyled mb-0">
       {% for a in most_read_articles %}
         <li><a href="{{ a.get_absolute_url }}" title="{{ a.title }}">{{ a.title }}</a> <!-- - {{ a.views }} --></li>
@@ -22,18 +22,6 @@
       {% for article in recent_articles %}
       <li><a href="{{ article.get_absolute_url }}" title="{{ article.title }}">{{ article.title }}</a></li>
       {% endfor %}
-      <!-- <li><a href="#">March 2014</a></li>
-      <li><a href="#">February 2014</a></li>
-      <li><a href="#">January 2014</a></li>
-      <li><a href="#">December 2013</a></li>
-      <li><a href="#">November 2013</a></li>
-      <li><a href="#">October 2013</a></li>
-      <li><a href="#">September 2013</a></li>
-      <li><a href="#">August 2013</a></li>
-      <li><a href="#">July 2013</a></li>
-      <li><a href="#">June 2013</a></li>
-      <li><a href="#">May 2013</a></li>
-      <li><a href="#">April 2013</a></li> -->
     </ol>
   </div>
   {% endif %}
