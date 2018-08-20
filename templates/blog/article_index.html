@@ -26,7 +26,7 @@
             {% for article in article_list %}
                 <div class="blog-post">
                     <h2 class="blog-post-title"><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h2>
-                    <br/><p>{{ article.body }}</p>
+                    <br/><p>{{ article.body|escape|custom_markdown|truncatechars_content }}</p>
                 </div>
             {% endfor %}
 
