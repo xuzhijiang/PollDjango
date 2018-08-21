@@ -2,8 +2,6 @@ from django.db import models
 from django.utils.timezone import now
 
 
-# Create your models here.
-
 class OwnTrackLog(models.Model):
     tid = models.CharField(max_length=100, null=False, verbose_name='用户')
     lat = models.FloatField(verbose_name='纬度')

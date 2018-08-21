@@ -1,7 +1,6 @@
 from django.db import models
 
 
-# Create your models here.
 class commands(models.Model):
     title = models.CharField('命令标题', max_length=300)
     command = models.CharField('命令', max_length=2000)

@@ -7,8 +7,6 @@ from accounts.models import BlogUser
 from django.urls import reverse
 
 
-# Create your tests here.
-
 class AccountTest(TestCase):
     def setUp(self):
         self.client = Client()

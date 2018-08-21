@@ -10,7 +10,6 @@ from .robot import MessageHandler, CommandHandler
 from servermanager.Api.commonapi import TuLing
 
 
-# Create your tests here.
 class ServerManagerTest(TestCase):
     def setUp(self):
         self.client = Client()

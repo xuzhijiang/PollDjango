@@ -4,8 +4,6 @@ from accounts.models import BlogUser
 import json
 
 
-# Create your tests here.
-
 class OwnTrackLogTest(TestCase):
     def setUp(self):
         self.client = Client()
