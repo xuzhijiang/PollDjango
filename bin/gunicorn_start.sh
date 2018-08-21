@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 NAME="djangoblog" # Name of the application
 DJANGODIR=/var/www/DjangoBlog # Django project directory
@@ -8,6 +8,7 @@ GROUP=root # the group to run as
 NUM_WORKERS=3 # how many worker processes should Gunicorn spawn
 DJANGO_SETTINGS_MODULE=DjangoBlog.settings # which settings file should Django use
 DJANGO_WSGI_MODULE=DjangoBlog.wsgi # WSGI module name
+# worker的数量推荐设置为2 * CPUs + 1，这样的话，在任何时候都有一半的worker在做IO.
 
 echo "Starting $NAME as `whoami`"
 
