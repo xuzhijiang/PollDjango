@@ -30,4 +30,3 @@ exec gunicorn ${DJANGO_WSGI_MODULE}:application \
 --bind 0.0.0.0:8000 \
 --log-level=debug \
 --log-file=-
-

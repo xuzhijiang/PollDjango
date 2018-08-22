@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
-NAME="djangoblog" # Name of the application
-DJANGODIR=/var/www/DjangoBlog # Django project directory
-SOCKFILE=/var/www/DjangoBlog/run/gunicorn.sock # we will communicte using this unix socket
-USER=root # the user to run as
-GROUP=root # the group to run as
-NUM_WORKERS=3 # how many worker processes should Gunicorn spawn
-DJANGO_SETTINGS_MODULE=DjangoBlog.settings # which settings file should Django use
-DJANGO_WSGI_MODULE=DjangoBlog.wsgi # WSGI module name
+NAME="djangoblog"
+DJANGODIR=/var/www/DjangoBlog
+SOCKFILE=/var/www/DjangoBlog/run/gunicorn.sock
+USER=root
+GROUP=root
+NUM_WORKERS=3
+DJANGO_SETTINGS_MODULE=DjangoBlog.settings
+DJANGO_WSGI_MODULE=DjangoBlog.wsgi
 # worker的数量推荐设置为2 * CPUs + 1，这样的话，在任何时候都有一半的worker在做IO.
 
 echo "Starting $NAME as `whoami`"
@@ -22,7 +22,6 @@ export PYTHONPATH=$DJANGODIR:$PYTHONPATH
 RUNDIR=$(dirname $SOCKFILE)
 test -d $RUNDIR || mkdir -p $RUNDIR
 
-# Start your Django Unicorn
 # Programs meant to be run under supervisor should not daemonize themselves (do not use --daemon)
 exec /var/www/dev/python3/bin/gunicorn ${DJANGO_WSGI_MODULE}:application \
 --name $NAME \
