@@ -3,8 +3,8 @@
 NAME="myproject"
 DJANGODIR=/home/xuzhijiang/project/app_deployment
 SOCKFILE=${DJANGODIR}/${NAME}/${NAME}.socket
-USER=root
-GROUP=root
+# USER=root
+# GROUP=root
 # worker的数量推荐设置为2 * CPUs + 1，这样的话，在任何时候都有一半的worker在做IO.
 NUM_WORKERS=3
 DJANGO_SETTINGS_MODULE=${NAME}.settings

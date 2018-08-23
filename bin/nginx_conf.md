@@ -83,3 +83,5 @@ let's restart Nginx to make these changes take effect:
 
 sudo service nginx restart
 ```
+
+![Reference](http://rahmonov.me/posts/run-a-django-app-with-gunicorn-in-ubuntu-16-04/)
