@@ -1,10 +1,10 @@
 {% load blog_tags %}
 <div class="nav-scroller py-1 mb-2">
-    <nav id="site-navigation" class="nav d-flex justify-content-between main-navigation" role="navigation">
+    <nav class="nav d-flex justify-content-between" role="navigation">
       <a class="p-2 text-muted" href="{{ SITE_BASE_URL }}">首页</a>
         {% query nav_category_list parent_category=None as root_categorys %}
         {% for node in root_categorys %}
-            {% include 'share_layout/nav_node.html' %}
+        	<a class="p-2 text-muted" href="{{ node.get_absolute_url }}">{{ node.name }}</a>
         {% endfor %}
       <a class="p-2 text-muted" href="{% url 'blog:archives' %}">文章归档</a>
     </nav>

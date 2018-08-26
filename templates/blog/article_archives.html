@@ -2,9 +2,7 @@
 {% load blog_tags %}
 {% load cache %}
 {% block header %}
-
-    <title>文章归档 | {{ SITE_DESCRIPTION }}</title>
-
+    <title>文章归档</title>
     <meta name="description" content="{{ SITE_SEO_DESCRIPTION }}"/>
     <meta name="keywords" content="{{ SITE_KEYWORDS }}"/>
     <meta property="og:type" content="blog"/>
@@ -12,48 +10,35 @@
     <meta property="og:description" content="{{ SITE_DESCRIPTION }}"/>
     <meta property="og:url" content="{{ SITE_BASE_URL }}"/>
     <meta property="og:site_name" content="{{ SITE_NAME }}"/>
-
 {% endblock %}
 {% block content %}
-    <div id="primary" class="site-content">
-        <div id="content" role="main">
-
-            <header class="archive-header">
-
-                <p class="archive-title">文章归档</p>
-            </header><!-- .archive-header -->
-
-            <div class="entry-content">
-
-                {% regroup article_list by created_time.year as year_post_group %}
-                <ul>
-                    {% for year in year_post_group %}
-                        <li>{{ year.grouper }} 年
-                            {% regroup year.list by created_time.month as month_post_group %}
-                            <ul>
-                                {% for month in month_post_group %}
-                                    <li>{{ month.grouper }} 月
-                                        <ul>
-                                            {% for article in month.list %}
-                                                <li><a href="{{ article.get_absolute_url }}">{{ article.title }}</a>
-                                                </li>
-                                            {% endfor %}
-                                        </ul>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </li>
+<div class="blog-archive">
+    <h4 class="blog-archive-header pb-3 mb-4 border-bottom text-dark">归档</h4>
+    <div class="blog-archive-content">
+        <ul class="blog-archive-list">
+            {% for article in article_list %}
+            <li class="blog-archive-list-item"><a href="{{ article.get_absolute_url }}" class="text-black">{{ article.title }}</a>&nbsp;&nbsp;<span class="text-gray">({% datetimeformat article.pub_time %})</span></li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% comment %}
+    <div class="blog-archive-content">
+        {% regroup article_list by pub_time.year as year_list %}
+        <ul class="blog-archive-list-year">
+            {% for year in year_list %}
+                <li class="blog-archive-list-year-item">{{ year.grouper }}</li>
+                <ul class="module-sublist">
+                    {% for article in year.list %}
+                    <li><a href="{{ article.get_absolute_url }}">{{ article.title }}</a><span>{% datetimeformat article.pub_time %}</span></li>
                     {% endfor %}
                 </ul>
-            </div>
-        </div><!-- #content -->
-    </div><!-- #primary -->
-
+            {% endfor %}
+        </ul>
+    </div>
+    {% endcomment %}
+</div>
 {% endblock %}
-
 
 {% block sidebar %}
     {% load_sidebar user %}
 {% endblock %}
-
-

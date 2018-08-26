@@ -1,8 +1,3 @@
-/**
- * Created by liangliang on 2016/11/20.
- */
-
-
 function do_reply(parentid) {
     console.log(parentid);
     $("#id_parent_comment_id").val(parentid)

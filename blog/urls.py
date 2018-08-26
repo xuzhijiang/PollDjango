@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-from django.urls import path
+from django.urls import path, include
 from django.views.decorators.cache import cache_page
 from . import views
 from haystack.forms import ModelSearchForm
@@ -17,9 +17,10 @@ urlpatterns = [
          views.ArticleDetailView.as_view(),
          name='detailbyid'),
 
-    path(r'category/<slug:category_name>.html', views.CategoryDetailView.as_view(), name='category_detail'),
-    path(r'category/<slug:category_name>/<int:page>.html', views.CategoryDetailView.as_view(),
-         name='category_detail_page'),
+    path(r'category/', include([
+        path(r'<slug:category_name>.html', views.CategoryDetailView.as_view(), name='category_detail'),
+        path(r'<slug:category_name>/<int:page>.html', views.CategoryDetailView.as_view(), name='category_detail_page'),
+    ])),
 
     path(r'author/<author_name>.html', views.AuthorDetailView.as_view(), name='author_detail'),
     path(r'author/<author_name>/<int:page>.html', views.AuthorDetailView.as_view(),
@@ -31,22 +32,3 @@ urlpatterns = [
     path(r'upload', views.fileupload, name='upload'),
     path(r'refresh', views.refresh_memcache, name='refresh')
 ]
-
-# 路径去重
-# ```python
-# urlpatterns = [
-#     path('<page_slug>-<page_id>/discuss/', views.discuss),
-#     path('<page_slug>-<page_id>/post/', views.post),
-#     path('<page_slug>-<page_id>/comment/, view.comment),
-#     path('<page_slug>-<page_id>/history/, view.history),
-# ]
-# urlpatterns = [
-#     path('<page_slug>-<page_id>/', include([
-#         path('discuss/', views.discuss),
-#         path('post/', views.post),
-#         path('comment/, view.comment),
-#         path('history/, view.history),
-#     ])),
-# ]
-
-# ```
