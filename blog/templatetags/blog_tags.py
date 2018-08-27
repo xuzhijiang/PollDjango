@@ -218,7 +218,7 @@ def load_pagination_info(paginator, page_obj, page_type, tag_name):
 """
 
 @register.inclusion_tag('blog/tags/pagination.html')
-def pagination(page_obj, begin_pages=2, end_pages=2, before_current_pages=4, after_current_pages=4):
+def pagination(page_obj, page_type, tag_name, begin_pages=2, end_pages=2, before_current_pages=4, after_current_pages=4):
 	before = max(page_obj.number - before_current_pages - 1, 0)
 	after = page_obj.number + after_current_pages
 	
@@ -229,12 +229,26 @@ def pagination(page_obj, begin_pages=2, end_pages=2, before_current_pages=4, aft
 
 	previous_url = None
 	next_url = None
-	if page_obj.has_previous():
-		previous_number = page_obj.previous_page_number()
-		previous_url = reverse('blog:index_page', kwargs={'page': previous_number})
-	if page_obj.has_next():
-		next_number = page_obj.next_page_number()
-		next_url = reverse('blog:index_page', kwargs={'page': next_number})
+	page_url_prefix = None
+	if page_type == '':
+		page_url_prefix = 'page'
+		if page_obj.has_previous():
+			previous_number = page_obj.previous_page_number()
+			previous_url = reverse('blog:index_page', kwargs={'page': previous_number})
+		if page_obj.has_next():
+			next_number = page_obj.next_page_number()
+			next_url = reverse('blog:index_page', kwargs={'page': next_number})
+	if page_type == '分类目录归档':
+		category = get_object_or_404(Category, name=tag_name)
+		page_url_prefix = 'category/' + category.slug
+		if page_obj.has_next():
+			next_number = page_obj.next_page_number()
+			next_url = reverse('blog:category_detail_page',
+							   kwargs={'page': next_number, 'category_name': category.slug})
+		if page_obj.has_previous():
+			previous_number = page_obj.previous_page_number()
+			previous_url = reverse('blog:category_detail_page',
+								   kwargs={'page': previous_number, 'category_name': category.slug})
 
 	def collides(firstlist, secondlist):
 		""" Returns true if lists collides (have same entries)
@@ -266,7 +280,8 @@ def pagination(page_obj, begin_pages=2, end_pages=2, before_current_pages=4, aft
 			'middle' : middle,
 			'end' : end,
 			'previous_url': previous_url,
-			'next_url': next_url,}
+			'next_url': next_url,
+			'page_url_prefix': page_url_prefix}
 
 
 """

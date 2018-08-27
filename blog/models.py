@@ -163,20 +163,17 @@ class Category(BaseModel):
         获得当前分类目录所有子集
         :return: 
         """
-        categorys = []
-        all_categorys = Category.objects.all()
+        category_list = []
+        category_list.append(self)
 
-        def parse(category):
-            if category not in categorys:
-                categorys.append(category)
-            childs = all_categorys.filter(parent_category=category)
-            for child in childs:
-                if category not in categorys:
-                    categorys.append(child)
-                parse(child)
+        def traverse_sub_categories(category):
+            sub_categories = Category.objects.all().filter(parent_category=category)
+            for child in sub_categories:
+                category_list.append(child)
+                traverse_sub_categories(child)
 
-        parse(self)
-        return categorys
+        traverse_sub_categories(self)
+        return category_list
 
 
 class Tag(BaseModel):

@@ -114,10 +114,9 @@ class CategoryDetailView(ArticleListView):
     def get_queryset_data(self):
         slug = self.kwargs['category_name']
         category = get_object_or_404(Category, slug=slug)
-        categoryname = category.name
-        self.categoryname = categoryname
-        categorynames = list(map(lambda c: c.name, category.get_sub_categorys()))
-        article_list = Article.objects.filter(category__name__in=categorynames, status='p')
+        self.categoryname = category.name
+        categories = list(map(lambda c: c.name, category.get_sub_categorys()))
+        article_list = Article.objects.filter(category__name__in=categories, status='p')
         return article_list
 
     def get_queryset_cache_key(self):

@@ -31,7 +31,7 @@
             {% endfor %}
 
             {% if is_paginated %}
-                {% pagination page_obj%}
+                {% pagination page_obj page_type tag_name%}
             {% endif %}
 {% endblock %}
 

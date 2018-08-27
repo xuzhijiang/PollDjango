@@ -233,7 +233,7 @@ LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'root': {
-        'level': 'WARNING',
+        'level': 'DEBUG',
         'handlers': ['sentry', 'console', 'log_file'],
     },
     'formatters': {

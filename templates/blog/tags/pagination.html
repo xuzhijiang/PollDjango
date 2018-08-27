@@ -14,21 +14,21 @@
     {% endif %}
 
     {% for pnum in begin %}
-        <li class="page-item {% if page.number == pnum %} disabled {% endif %}"><a class="page-link" href="/page/{{ pnum }}">{{ pnum }}</a></li>
+        <li class="page-item {% if page.number == pnum %} disabled {% endif %}"><a class="page-link" href="/{{ page_url_prefix }}/{{ pnum }}.html">{{ pnum }}</a></li>
     {% endfor %}
 
     {% if middle %}
         <li class="page-item"><a class="page-link" href="javascript:void(0);"><strong>...</strong></a></li>
 
         {% for pnum in middle %}
-            <li class="page-item {% if page.number == pnum %} disabled {% endif %}"><a class="page-link" href="/page/{{ pnum }}">{{ pnum }}</a></li> 
+            <li class="page-item {% if page.number == pnum %} disabled {% endif %}"><a class="page-link" href="/{{ page_url_prefix }}/{{ pnum }}.html">{{ pnum }}</a></li> 
         {% endfor %}
     {% endif %}
 
     {% if end %}
         <li class="page-item"><a class="page-link" href="javascript:void(0);"><strong>...</strong></a></li>
         {% for pnum in end %}
-        <li class="page-item {% if page.number == pnum %} disabled {% endif %}"><a class="page-link" href="/page/{{ pnum }}">{{ pnum }}</a></li>
+        <li class="page-item {% if page.number == pnum %} disabled {% endif %}"><a class="page-link" href="/{{ page_url_prefix }}/{{ pnum }}.html">{{ pnum }}</a></li>
         {% endfor %}
     {% endif %}
 
