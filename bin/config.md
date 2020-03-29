@@ -1,6 +1,7 @@
 # 主要功能配置介绍:
 
 ## 缓存：
+
 缓存默认使用`memcache`缓存，如果你没有`memcache`环境，则将`settings.py`中的`locmemcache`改为`default`,并删除默认的`default`配置即可。
 ```python
 CACHES = {
